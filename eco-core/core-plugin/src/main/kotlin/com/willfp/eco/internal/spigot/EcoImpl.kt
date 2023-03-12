@@ -41,7 +41,8 @@ import com.willfp.eco.internal.logging.EcoLogger
 import com.willfp.eco.internal.logging.NOOPLogger
 import com.willfp.eco.internal.placeholder.PlaceholderParser
 import com.willfp.eco.internal.proxy.EcoProxyFactory
-import com.willfp.eco.internal.scheduling.EcoScheduler
+import com.willfp.eco.internal.scheduling.EcoSchedulerFolia
+import com.willfp.eco.internal.scheduling.EcoSchedulerSpigot
 import com.willfp.eco.internal.spigot.data.DataYml
 import com.willfp.eco.internal.spigot.data.KeyRegistry
 import com.willfp.eco.internal.spigot.data.ProfileHandler
@@ -106,7 +107,7 @@ class EcoImpl : EcoSpigotPlugin(), Eco {
     )
 
     override fun createScheduler(plugin: EcoPlugin) =
-        EcoScheduler(plugin)
+        if (Prerequisite.HAS_FOLIA.isMet) EcoSchedulerFolia(plugin) else EcoSchedulerSpigot(plugin)
 
     override fun createEventManager(plugin: EcoPlugin) =
         EcoEventManager(plugin)
